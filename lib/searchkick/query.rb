@@ -334,6 +334,10 @@ module Searchkick
               unless %w(japanese korean polish ukrainian vietnamese).include?(searchkick_options[:language])
                 qs << shared_options.merge(analyzer: "searchkick_search2")
               end
+
+              if %w(russian).include?(searchkick_options[:language])
+                qs << shared_options.merge(analyzer: searchkick_options[:language])
+              end
               exclude_analyzer = "searchkick_search2"
             elsif field.end_with?(".exact")
               f = field.split(".")[0..-2].join(".")

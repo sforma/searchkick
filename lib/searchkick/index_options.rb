@@ -330,7 +330,11 @@ module Searchkick
 
         mapping_options[:searchable].delete("_all")
 
-        analyzed_field_options = {type: default_type, index: index_true_value, analyzer: default_analyzer}
+        if %w(russian).include?(language)
+          analyzed_field_options = {type: default_type, index: index_true_value, analyzer: language }
+        else
+          analyzed_field_options = {type: default_type, index: index_true_value, analyzer: default_analyzer }
+        end
 
         mapping_options.values.flatten.uniq.each do |field|
           fields = {}
